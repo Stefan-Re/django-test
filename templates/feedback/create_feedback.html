@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %} Create a new feedback {% endblock %}
+
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form }}
+                    <button type="submit">Save</button>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

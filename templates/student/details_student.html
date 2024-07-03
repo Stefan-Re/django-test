@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %} Details - {{ student }} {% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card text-center">
+                    <div class="card-header">
+                        View details
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ student }}t</h5>
+                        <p class="card-text"> Email:{{ student.email }}</p>
+                        <a href="{% url 'students-list' %}" class="btn btn-primary">Back</a>
+                    </div>
+                    <div class="card-footer text-body-secondary">
+                        Created at: {{ student.created_at|date:'d-m-Y H:i:s' }} | Updated at:{{ student.updated_at|date:'d-m-Y H:i:s' }}
+                    </div>
+                </div>
+            </div>
+             </div>
+        <br><br>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h3>List of students</h3>
+                <table class="table">
+                    <thead>
+                            <tr>
+                                <th>Fullnane</th>
+                                <th>Email</th>
+                                <th>Actions</th>
+                            </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in students %}
+                            <tr>
+                                <td>{{ student }}</td>
+                                <td>{{ student.email }}</td>
+                                <td><a href="{% url 'students-detail' student.id %}" class="btn btn-outline-secondary">View details</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+         <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h3>List of trainers</h3>
+                <table class="table">
+                    <thead>
+                            <tr>
+                                <th>Fullnane</th>
+                                <th>Email</th>
+                                <th>Actions</th>
+                            </tr>
+                    </thead>
+                    <tbody>
+                        {% for trainer in trainers %}
+                            <tr>
+                                <td>{{ trainer }}</td>
+                                <td>{{ trainer.email }}</td>
+                                <td><a href="{% url 'trainer-detail' trainer.id %}" class="btn btn-outline-secondary">View details</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

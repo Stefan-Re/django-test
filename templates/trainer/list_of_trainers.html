@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">
+                        Filters
+                    </h3>
+                </div>
+                <form method="get">
+                    <div class="card-body">
+                        {{ form_filters.as_p }}
+                    </div>
+                    <div class="card-footer text-center">
+                        <button type="submit" class="btn btn-outline-success">Filter</button>
+                        <a href="{% url 'trainer-list' %}" class="btn btn-outline-danger">Reset</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-10">
+            <div class="row">
+                {% if all_trainers %}
+                    {% for trainer in all_trainers %}
+                        <div class="col-md-2 mb-4">
+                            <div class="card h-100">
+                                <img src="{% static 'images/empty.jpg' %}" class="card-img-top" alt="Trainer Image">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ trainer }}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{ trainer.course_name }}</h6>
+                                    <p class="card-text">{{ trainer.get_department_display }}</p>
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                            More actions
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="{% url "update-trainer" trainer.id %}">Update</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'delete-trainer' trainer.id %}">Delete</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'trainer-detail' trainer.id %}">View details</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col-12">
+                        <h3 class="text-center">No data available</h3>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">
+                            Filters
+                        </h3>
+                    </div>
+                    <form method="get">
+                        <div class="card-body">
+                            {{ form_filters.as_p }}
+                        </div>
+                        <div class="card-footer text-center">
+                            <button type="submit" class="btn btn-outline-success">Login</button>
+                            <a href="{% url 'students-list' %}" class="btn btn-outline-danger">Reset</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md 10">
+                {% if all_students %}
+                    <h2>List of Students</h2>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Age</th>
+                            <th>Active</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Gender</th>
+                            <th>Created At</th>
+                            <th>Name of Trainer</th>
+                            <th>Course Name</th>
+                            <th>Trainer Department</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for student in all_students %}
+                            <tr>
+                                <td>{{ student.first_name }}</td>
+                                <td>{{ student.last_name }}</td>
+                                <td>{{ student.age }}</td>
+                                <td>
+                                    {% if student.active %}Yes{% else %}No{{% endif %}
+                                </td>
+                                <td>{{ student.start_date|date:'d-m-Y' }}</td>
+                                <td>{{ student.end_date|date:'d-m-Y' }}</td>
+                                <td>{{ student.get_gender_display }}</td>
+                                <td>{{ student.created_at|date:"d-m-Y H:i:s" }}</td>
+
+                                <td>{% if student.trainer %}
+                                    {{ student.trainer }}
+                                {% else %}
+                                    No trainer
+                                {% endif %}
+                                </td>
+                                <td>
+                                    {% if student.trainer.course_name %}
+                                        {{ student.trainer.course_name }}
+                                    {% else %}
+                                        No course
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if student.trainer.department %}
+                                        {{ student.trainer.get_department_display }}
+                                    {% else %}
+                                        No department
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if perms.student.change_student or perms.student.delete_student or perms.student.view_student %}
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                More Actions
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                {% if perms.student.change_student %}
+                                                    <li><a class="dropdown-item"
+                                                           href="{% url 'update-student' student.id %}">Update</a></li>
+                                                {% endif %}
+                                                {% if perms.student.delete_student %}
+                                                    <li><a class="dropdown-item"
+                                                           href="{% url 'delete-student' student.id %}">Delete</a></li>
+                                                {% endif %}
+                                                {% if perms.student.view_student %}
+                                                    <li><a class="dropdown-item"
+                                                           href="{% url 'details-student' student.id %}">View
+                                                        details</a>
+                                                    </li>
+                                                {% endif %}
+                                            </ul>
+                                        </div>
+                                    {% else %}
+                                        <p>No actions</p>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <div>
+                        <h3 class="text-center">No data available</h3>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

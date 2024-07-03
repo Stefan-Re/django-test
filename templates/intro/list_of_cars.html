@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %} List of Cars {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+        <h2>Pozitionarea</h2>
+            <div class=".col-md-6 .offset-md-3">
+                <table class="table table-info table-striped">
+
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Model</th>
+                <th>Color</th>
+                <th>Year</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for car in all_cars %}
+                <tr>
+                    <td>{{ car.name }}</td>
+                    <td>{{ car.model }}</td>
+                    <td>{{ car.color }}</td>
+                    <td>{{ car.year }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+            </div>
+        </div>
+        <hr>
+    
+        <h2>Coloane</h2>
+        <hr>
+            <div class="col-md-6">
+                <table class="table table-info table-striped">
+
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Model</th>
+                <th>Color</th>
+                <th>Year</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for car in all_cars %}
+                <tr>
+                    <td>{{ car.name }}</td>
+                    <td>{{ car.model }}</td>
+                    <td>{{ car.color }}</td>
+                    <td>{{ car.year }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+            </div>
+            <div class="col-md-6">
+                <a href="{% url 'list-phones' %}" class="btn btn-outline-info">Go to list of Phones</a>
+            </div>
+        </div>
+    
+{% endblock %}

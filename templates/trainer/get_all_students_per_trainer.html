@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %} List of students for Trainer {% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="row">
+            {% if not get_students %}
+                <p>Acest trainer nu are studenti inscrisi la cursuri.</p>
+            {% else %}
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>First name</th>
+                        <th>Last name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for stud in get_students %}
+                        <tr>
+                            <td>{{ stud.first_name }}</td>
+                            <td>{{ stud.last_name }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

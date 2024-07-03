@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Student's History{% endblock %}
+
+{% block content %}
+    <h2>Student History</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Message</th>
+            <th>Created At</th>
+            <th>Active</th>
+            <th>User</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for history in history_list %}
+            <tr>
+                <td>{{ history.message }}</td>
+                <td>{{ history.created_at }}</td>
+                <td>{{ history.active }}</td>
+                <td>{{ history.user.username }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
